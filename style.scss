@@ -1,22 +1,82 @@
-$bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+$dark-bg: #0f2027;
+$dark-mid: #203a43;
+$dark-light: #2c5364;
+$bg-gradient: linear-gradient(135deg, $dark-bg, $dark-mid, $dark-light);
 $text-color: #fff;
 $btn-bg: rgba(0, 0, 0, 0.6);
 $btn-hover-bg: rgba(255, 255, 255, 0.8);
 
-body {
+* {
     margin: 0;
+    padding: 0;
+}
+
+body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: $bg-gradient;
     color: $text-color;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 60px;
-    padding: 30px 0;
+}
+
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    ul{
+        display: flex;
+        justify-content: left;
+        gap: 20px;
+        list-style: none;
+        flex-wrap: wrap;
+        li a{
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            color: $text-color;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease-in-out forwards;
+            text-decoration: none;
+        }
+
+        li{
+            &.m-wh{
+                a {
+                    &:hover{
+                        color: #d4af37;
+                        text-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+                    }
+                }
+            }
+            &.m-hd2{
+                a {
+                    &:hover{
+                        color: #ffcc00;
+                        text-shadow: 0 0 8px rgba(255, 204, 0, 0.8);
+                    }
+                }
+            }
+            &.m-ron{
+                a {
+                    &:hover{
+                        color: #ff0000;
+                        text-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+                    }
+                }
+        }
+    }
+
+    img {
+        animation: fadeInRight 1s ease-in-out both;
+    }
+}
 }
 
 .block {
-    height: 100vh;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,6 +97,7 @@ body {
     overflow: hidden;
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+    contain: layout paint;
 
     .carousel-track {
     display: flex;
@@ -58,6 +119,7 @@ body {
 
         img {
             filter: brightness(1);
+            will-change: transform, filter;
         }
 
         h3 {
@@ -74,9 +136,9 @@ body {
 
     img {
         width: 100%;
-        height: 100%; // занимает всю высоту слайда
-        object-fit: cover; // обеспечивает правильное масштабирование изображения
-        object-position: 50% 75%; // центрирует изображение
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 75%;
         display: block;
         filter: brightness(0.9);
         transition: filter 0.5s ease;
@@ -105,15 +167,12 @@ body {
         left: 50%;
         transform: translateX(-50%);
         max-width: 90%;
-
         background: rgba(0, 0, 0, 0.6);
         backdrop-filter: blur(4px);
-
         padding: 12px 18px;
         font-size: 18px;
         text-align: center;
         border-radius: 8px;
-
         opacity: 0;
         transition: all 0.6s ease;
     }
@@ -170,8 +229,118 @@ button {
     }
 }
 
+@supports not (backdrop-filter: blur(4px)) {
+    .caption {
+        background: rgba(0, 0, 0, 0.8);
+    }
+}
+
+@media (max-width: 1024px) {
+    .carousel{
+        height: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 20px 10px;
+  }
+
+  header ul li a {
+    font-size: 18px;
+  }
+
+  .block .test {
+    font-size: 22px;
+    margin-bottom: 25px;
+  }
+
+  .carousel {
+    width: 95%;
+    height: 400px;
+  }
+
+  button {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+  }
+
+  .caption {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel {
+    height: 320px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  .caption {
+    font-size: 14px;
+  }
+}
+
 @keyframes pulse {
     0% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1.3); opacity: 0.7; }
     100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInRight {
+    from{
+        opacity: 0;
+        transform: translateX(200px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+footer{
+    width: 100%;
+    height: 20vh;
+    background-color: $dark-bg;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    p{
+        font-size: 30px;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .github-cont{
+        display: flex;
+        align-items: center;
+
+        .github-logo{
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            transition: transform 0.5s ease, color 0.5s ease;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        }
+
+        .github-link:hover .github-logo {
+            color: #fbfaf5;
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 10px #58a6ff);
+        }
+    }
 }
