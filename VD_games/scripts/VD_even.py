@@ -18,4 +18,4 @@ def even_game(name:str):
             return
         print("Correct")
         
-    print(f"Congratulations. {name}")
+    print(f"Congratulations, {name}")
