@@ -11,7 +11,7 @@ def make_progression(start, step, length):
 def get_quest_and_answer():
     start  = randint(1, 20)
     step   = randint(1, 20)
-    length = randint(1, 20)
+    length = randint(5, 15)
 
     progression = make_progression(start, step, length)
 
